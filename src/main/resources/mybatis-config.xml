@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    choose which environment default-->
+    <environments default="mysql">
+        <environment id="mysql">
+<!--                rollback or commit  -->
+            <transactionManager type="JDBC"></transactionManager>
+<!--            Several connections are prepared in the pool-->
+            <dataSource type="POOLED">
+<!--                Mustn't change the name of properties-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+<!--        <environment id="oracle">-->
+<!--            <transactionManager type=""></transactionManager>-->
+<!--            <dataSource type=""></dataSource>-->
+<!--        </environment>-->
+    </environments>
+    <mappers>
+<!--        JVM recognize usermapper.xml by this mapper sentence-->
+        <mapper resource="mapper\UserMapper.xml"></mapper>
+    </mappers>
+</configuration>

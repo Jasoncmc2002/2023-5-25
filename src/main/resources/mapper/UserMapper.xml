@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace :copy the reference of the dao interface ,
+make the dao interface connect with xml file-->
+<mapper namespace="com.neusoft.dao.IUserDao">
+<!--    id:the corresponding method -->
+<!--    resultType can't be list, must be its generalist-->
+    <select id="queryUserList" resultType="com.neusoft.entity.User">
+        select * from user
+    </select>
+</mapper>
