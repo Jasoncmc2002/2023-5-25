@@ -33,7 +33,7 @@ public class UserQuery {
 //                 System.out.println(user.getId());
 //             }
      User user = iUserDao.getUserById(2);
-      System.out.println(user.getId());
+      System.out.println(user.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
