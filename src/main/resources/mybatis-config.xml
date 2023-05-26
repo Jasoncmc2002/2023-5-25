@@ -2,12 +2,12 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    <properties resource="mysql.properties"></properties>-->
-<!--&lt;!&ndash;    choose which environment default&ndash;&gt;-->
-<!--    <typeAliases>-->
-<!--&lt;!&ndash;        <typeAlias type="com.neusoft.entity.User" alias = "User"></typeAlias>&ndash;&gt;-->
-<!--        <package name="com.neusoft.entity"/>-->
-<!--    </typeAliases>-->
+    <properties resource="mysql.properties"></properties>
+<!--    choose which environment default-->
+    <typeAliases>
+<!--        <typeAlias type="com.neusoft.entity.User" alias = "User"></typeAlias>-->
+        <package name="com.neusoft.entity"/>
+    </typeAliases>
 
     <environments default="mysql">
         <environment id="mysql">
@@ -16,14 +16,14 @@
 <!--            Several connections are prepared in the pool-->
             <dataSource type="POOLED">
 <!--                Mustn't change the name of properties-->
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
-<!--                <property name="driver" value="${driver}"/>-->
-<!--                <property name="url" value="${url}"/>-->
-<!--                <property name="username" value="${username}"/>-->
-<!--                <property name="password" value="${password}"/>-->
+<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/test"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456"/>-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
 <!--        <environment id="oracle">-->
@@ -34,6 +34,6 @@
     <mappers>
 <!--        JVM recognize usermapper.xml by this mapper sentence-->
         <mapper resource="mapper\UserMapper.xml"></mapper>
-<!--        <package name="com.neusoft.entity"/>-->
+<!--        <package name="com.neusoft.dao"/>-->
     </mappers>
 </configuration>

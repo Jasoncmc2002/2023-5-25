@@ -19,5 +19,14 @@ public class User {
         this.name = name;
     }
 //mybatis 必须有无参构造方法！！！！！！
+    //否则编译错误！！！！！！
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

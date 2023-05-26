@@ -9,7 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserQuery {
     public static void main(String[] args) {
@@ -32,8 +34,29 @@ public class UserQuery {
 //                 System.out.print(user.getName()+"  ");
 //                 System.out.println(user.getId());
 //             }
-     User user = iUserDao.getUserById(2);
-      System.out.println(user.getName());
+
+//     User user = iUserDao.getUserById(2);
+//      System.out.println(user.getId());
+
+            User user =iUserDao.getUserByAll(1,"cmc");
+            System.out.println(user);
+
+
+//            Map is an interface so you can't create an object directly
+//            Map<String,Object> map = new HashMap<String, Object>();
+//            map.put("name","cmc");
+//            List<User> list =iUserDao.getUserByMap(map);
+//            for(User user :list){
+//                 System.out.print(user.getName()+"  ");
+//                 System.out.println(user.getId());
+//             }
+//
+//           User conditionObject = new User();
+//           conditionObject.setId(1);
+//           conditionObject.setName("jason");
+//           User user = iUserDao.getUserByObject(conditionObject);
+//            System.out.println(user.getName());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

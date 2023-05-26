@@ -10,7 +10,16 @@ make the dao interface connect with xml file-->
     <select id="queryUserList" resultType="com.neusoft.entity.User">
         select * from user
     </select>
-    <select id="getUserById" resultType="com.neusoft.entity.User" parameterType="int">
+    <select id="getUserById" resultType="User" parameterType="int">
         select * from user where id = #{id}
+    </select>
+    <select id="getUserByAll" resultType="User" >
+        select * from user where id = #{id} and name =#{name}
+    </select>
+    <select id="getUserByMap" resultType="User" parameterType="Map">
+        select * from user where name =#{name}
+    </select>
+    <select id="getUserByObject" resultType="User" parameterType="User">
+        select * from user where  name =#{name}
     </select>
 </mapper>
