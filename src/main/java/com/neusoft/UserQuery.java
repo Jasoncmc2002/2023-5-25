@@ -26,14 +26,14 @@ public class UserQuery {
 
              //4.Get Dao object to execute query with the tech of Reflect
              IUserDao iUserDao =sqlSession.getMapper(IUserDao.class);
-             List<User> list= iUserDao.queryUserList();
-
-             for(User user :list){
-                 System.out.print(user.getName()+"  ");
-                 System.out.println(user.getId());
-             }
-
-
+//             List<User> list= iUserDao.queryUserList();
+//
+//             for(User user :list){
+//                 System.out.print(user.getName()+"  ");
+//                 System.out.println(user.getId());
+//             }
+     User user = iUserDao.getUserById(2);
+      System.out.println(user.getId());
         } catch (IOException e) {
             e.printStackTrace();
         }

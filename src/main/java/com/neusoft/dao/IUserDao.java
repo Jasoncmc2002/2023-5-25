@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IUserDao {
     List<User> queryUserList();
-   User getUserById();
+   User getUserById(int id);
 }
