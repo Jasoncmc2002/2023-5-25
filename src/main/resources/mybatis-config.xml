@@ -34,6 +34,7 @@
     <mappers>
 <!--        JVM recognize usermapper.xml by this mapper sentence-->
         <mapper resource="mapper\UserMapper.xml"></mapper>
+<!--        必须保证接口名（例如UserMapper）和xml名（UserMapper.xml）相同，还必须在同一个包中-->
 <!--        <package name="com.neusoft.dao"/>-->
     </mappers>
 </configuration>

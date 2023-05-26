@@ -13,13 +13,37 @@ make the dao interface connect with xml file-->
     <select id="getUserById" resultType="User" parameterType="int">
         select * from user where id = #{id}
     </select>
+<!--    数据库列名和实体类属性名不同时这样写，后面不用再写一遍-->
     <select id="getUserByAll" resultType="User" >
-        select * from user where id = #{id} and name =#{name}
+        select id uid,name from user where id = #{id} and name =#{name}
     </select>
+<!--上面的另一解决方式：resultmap即进行数据库列与属性的映射-->
+<!--    <resultMap id="userResultMap" type="User">-->
+<!--        <result property="uid" column="id"></result>-->
+<!--        <result property="name" column="name"></result>-->
+<!--    </resultMap>-->
+<!--    <select id="getUserByAll" resultType="User" resultMap="userResultMap">-->
+<!--        select * from user where id = #{id} and name =#{name}-->
+<!--    </select>-->
+
     <select id="getUserByMap" resultType="User" parameterType="Map">
         select * from user where name =#{name}
     </select>
     <select id="getUserByObject" resultType="User" parameterType="User">
         select * from user where  name =#{name}
     </select>
+
+    <insert id="addUser" parameterType="User">
+         insert into user values (#{name},#{id})
+    </insert>
+
+    <update id="modifyUser" parameterType="User">
+        update user
+        set name =#{name}
+        where id =#{id}
+    </update>
+    <delete id="deleteUser" parameterType="User">
+        delete from user where id =#{id}
+    </delete>
+
 </mapper>

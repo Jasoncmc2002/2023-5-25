@@ -13,4 +13,8 @@ public interface IUserDao {
    User getUserByAll(@Param("id") int id,@Param("name") String name);
     List<User> getUserByMap(Map<String,Object> map);
     User getUserByObject(User user);
+
+    void addUser(User user);
+    void modifyUser(User user);
+    void deleteUser (User user);
 }
