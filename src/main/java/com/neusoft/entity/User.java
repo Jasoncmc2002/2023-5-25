@@ -13,6 +13,5 @@ public class User {
 //mybatis 必须有无参构造方法！！！！！！
     //否则编译错误！！！！！！
     private Card card;
-    //List<Order> orderList;
-
+    List<Order> orderList;
 }

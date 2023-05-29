@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace :copy the reference of the dao interface ,
+make the dao interface connect with xml file-->
+<mapper namespace="com.neusoft.dao.IOrderDao">
+    <select id="queryOrderByUid" parameterType="int" resultType="Order">
+        select * from u_order where uid = #{id}
+    </select>
+</mapper>

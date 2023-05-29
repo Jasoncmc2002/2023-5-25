@@ -19,6 +19,9 @@ make the dao interface connect with xml file-->
         <association property="card" select="com.neusoft.dao.ICardDao.queryCardById" column="cardid">
 
         </association>
+<collection property="orderList" select="com.neusoft.dao.IOrderDao.queryOrderByUid" column="id">
+
+</collection>
     </resultMap>
     <select id="getUserById" resultMap="userCard" parameterType="int">
         select * from user where id = #{id}
@@ -54,11 +57,16 @@ make the dao interface connect with xml file-->
         <result column="cid" property="id"></result>
         <result column="uid" property="uid"></result>
     </association>
+    <collection property="orderList" ofType="Order">
+        <result property="oid" column="oid"></result>
+        <result property="uid" column="uid"></result>
+        <result property="time" column="time"></result>
+    </collection>
 </resultMap>
     <select id="getUserAndCardById" resultMap="userCard1" parameterType="int">
-        select u.id pid,name,c.id cid,uid
-        from user u join card c
-        on u.cardid = c.id
+        select u.id pid,cardid,name,time,uid,oid
+        from user u join u_order o
+        on u.id = o.uid
         where u.id =#{id}
     </select>
 

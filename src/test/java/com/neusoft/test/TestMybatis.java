@@ -60,12 +60,11 @@ public class TestMybatis {
         try {
             sqlSession = MybatisUtil.getSession();
             IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
-            User user = iUserDao.getUserById(24);
+            User user = iUserDao.getUserById(5);
             System.out.println(user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
     @Test
     public void getUserAndCardById(){
@@ -73,7 +72,7 @@ public class TestMybatis {
         try {
             sqlSession = MybatisUtil.getSession();
             IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
-            User user = iUserDao.getUserAndCardById(24);
+            User user = iUserDao.getUserAndCardById(5);
             System.out.println(user);
         } catch (IOException e) {
             throw new RuntimeException(e);
