@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace :copy the reference of the dao interface ,
+make the dao interface connect with xml file-->
+<mapper namespace="com.neusoft.dao.ICardDao">
+<!--    自动添加ID-->
+<insert id="addCard" parameterType="Card" keyProperty="id" useGeneratedKeys="true">
+    insert into card (uid) values (#{uid})
+</insert>
+    <select id="queryCardById" parameterType="int" resultType="Card">
+          select * from card where id = #{id}
+    </select>
+
+</mapper>

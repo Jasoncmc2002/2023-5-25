@@ -47,8 +47,10 @@ public class UserQuery {
 
            User user= new User();
            user.setName("abc");
-            user.setId(14);
-            iUserService.deleteUser(user);
+            user.setId(15);
+            iUserService.addUser(user);
+            System.out.println(user);
+//            iUserService.deleteUser(user);
 //            iUserService.modifyUser(user);
 //           iUserDao.addUser(user);
 //           //System.out.println(1/0);

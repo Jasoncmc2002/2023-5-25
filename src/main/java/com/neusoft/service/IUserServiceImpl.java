@@ -41,6 +41,8 @@ public class IUserServiceImpl implements IUserService {
         }
 
     }
+    //正常不能直接做删除！！！！
+    // -->表中要有一个flag列，删除=将flag的值改变（delete actually=modify）
     public void deleteUser(User user){
         SqlSession sqlSession =null;
         try {

@@ -10,7 +10,17 @@ make the dao interface connect with xml file-->
     <select id="queryUserList" resultType="com.neusoft.entity.User">
         select * from user
     </select>
-    <select id="getUserById" resultType="User" parameterType="int">
+<!--1 to 1 query :resultMap-->
+    <resultMap id="userCard" type="User">
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <result property="cardid" column="cardid"></result>
+<!--  输入参数（查询条件）：User的对应列名 -->
+        <association property="card" select="com.neusoft.dao.ICardDao.queryCardById" column="cardid">
+
+        </association>
+    </resultMap>
+    <select id="getUserById" resultMap="userCard" parameterType="int">
         select * from user where id = #{id}
     </select>
 <!--    数据库列名和实体类属性名不同时这样写，后面不用再写一遍-->
@@ -30,11 +40,31 @@ make the dao interface connect with xml file-->
         select * from user where name =#{name}
     </select>
     <select id="getUserByObject" resultType="User" parameterType="User">
-        select * from user where  name =#{name}
+        select * from user where name =#{name}
+    </select>
+    <select id="getUserByName" resultType="User" parameterType="String">
+        select * from user where  name = ${name}
     </select>
 
-    <insert id="addUser" parameterType="User">
-         insert into user values (#{name},#{id})
+
+<resultMap id="userCard1" type="User">
+    <result property="id" column="pid"></result>
+    <result property="name" column="name"></result>
+    <association property="card" javaType="Card">
+        <result column="cid" property="id"></result>
+        <result column="uid" property="uid"></result>
+    </association>
+</resultMap>
+    <select id="getUserAndCardById" resultMap="userCard1" parameterType="int">
+        select u.id pid,name,c.id cid,uid
+        from user u join card c
+        on u.cardid = c.id
+        where u.id =#{id}
+    </select>
+
+<!--    1 to 1 :column in DB= attribute-->
+    <insert id="addUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+         insert into user(name,cardid) values (#{name},#{card.id})
     </insert>
 
     <update id="modifyUser" parameterType="User">

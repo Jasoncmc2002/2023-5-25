@@ -2,7 +2,11 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!--各个标签都是有序的，不可调换顺序！！！！-->
     <properties resource="mysql.properties"></properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
 <!--    choose which environment default-->
     <typeAliases>
 <!--        <typeAlias type="com.neusoft.entity.User" alias = "User"></typeAlias>-->
@@ -33,8 +37,11 @@
     </environments>
     <mappers>
 <!--        JVM recognize usermapper.xml by this mapper sentence-->
-        <mapper resource="mapper\UserMapper.xml"></mapper>
-<!--        必须保证接口名（例如UserMapper）和xml名（UserMapper.xml）相同，还必须在同一个包中-->
-<!--        <package name="com.neusoft.dao"/>-->
+<!--        <mapper resource="mapper\UserMapper.xml"></mapper>-->
+<!--        <mapper resource="mapper\CardMapper.xml"></mapper>-->
+<!--        必须保证接口名（例如UserMapper）和xml名（IUserDao.xml）相同，还必须在同一个包中-->
+    <package name="com.neusoft.dao"/>
     </mappers>
+    
+
 </configuration>
