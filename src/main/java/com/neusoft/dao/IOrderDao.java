@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IOrderDao {
     List<Order> queryOrderByUid(int id);
+    void insertOrder(Order order);
 }

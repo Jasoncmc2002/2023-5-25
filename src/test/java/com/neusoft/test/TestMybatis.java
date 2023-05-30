@@ -1,14 +1,18 @@
 package com.neusoft.test;
 
 import com.neusoft.dao.ICardDao;
+import com.neusoft.dao.IOrderDao;
 import com.neusoft.dao.IUserDao;
 import com.neusoft.entity.Card;
+import com.neusoft.entity.Order;
 import com.neusoft.entity.User;
 import com.neusoft.util.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestMybatis {
     //It is same as main method
@@ -74,6 +78,33 @@ public class TestMybatis {
             IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
             User user = iUserDao.getUserAndCardById(5);
             System.out.println(user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void insertOrder(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+           IOrderDao iOrderDao = sqlSession.getMapper(IOrderDao.class);
+           Order order = new Order();
+            iOrderDao.insertOrder(order);
+            System.out.println(order);
+            sqlSession.commit();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void order(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+            IOrderDao iOrderDao = sqlSession.getMapper(IOrderDao.class);
+            List<Order> orders =iOrderDao.queryOrderByUid(5);
+            System.out.println(orders);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

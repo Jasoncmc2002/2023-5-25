@@ -7,6 +7,7 @@ import java.util.List;
 //Create getter+setter+toString automatically
 @Data
 public class User {
+
     private String name;
     private int id;
     private int cardid;

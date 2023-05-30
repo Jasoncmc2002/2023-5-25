@@ -6,6 +6,9 @@
 make the dao interface connect with xml file-->
 <mapper namespace="com.neusoft.dao.IOrderDao">
     <select id="queryOrderByUid" parameterType="int" resultType="Order">
-        select * from u_order where uid = #{id}
+        select * from u_order where uid = #{uid}
     </select>
+    <insert id="insertOrder" parameterType="Order" keyProperty="oid" useGeneratedKeys="true">
+        insert into u_order(uid,time) values (#{uid},#{time})
+    </insert>
 </mapper>
