@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace :copy the reference of the dao interface ,
+make the dao interface connect with xml file-->
+<mapper namespace="com.neusoft.dao.ILeaderDao">
+    <insert id="addLeader" parameterType="Leader" keyProperty="id" useGeneratedKeys="true">
+        insert into leader(lname) values (#{lname})
+    </insert>
+<!--    Don't need key property(java class attribute) and useGenerate key-->
+    <insert id="addRelation">
+        insert into rs_l_u(lid,uid) values (#{lid},#{uid})
+    </insert>
+    <select id="queryLeaderByUid" resultType="Leader" parameterType="int">
+        select l.id lname
+        from leader l join rs_l_u r
+        on l.id = r.lid
+        where r.uid =#{id}
+    </select>
+</mapper>

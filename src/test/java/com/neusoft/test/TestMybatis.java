@@ -1,9 +1,11 @@
 package com.neusoft.test;
 
 import com.neusoft.dao.ICardDao;
+import com.neusoft.dao.ILeaderDao;
 import com.neusoft.dao.IOrderDao;
 import com.neusoft.dao.IUserDao;
 import com.neusoft.entity.Card;
+import com.neusoft.entity.Leader;
 import com.neusoft.entity.Order;
 import com.neusoft.entity.User;
 import com.neusoft.util.MybatisUtil;
@@ -11,6 +13,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +100,7 @@ public class TestMybatis {
         }
     }
     @Test
-    public void order(){
+    public void queryOrder(){
         SqlSession sqlSession = null;
         try {
             sqlSession = MybatisUtil.getSession();
@@ -105,6 +108,57 @@ public class TestMybatis {
             List<Order> orders =iOrderDao.queryOrderByUid(5);
             System.out.println(orders);
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void insertLeaderAndUser(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+            ILeaderDao iLeaderDao = sqlSession.getMapper(ILeaderDao.class);
+            IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
+            Leader leader = new Leader();
+            leader.setLname("c");
+            Leader leader1 = new Leader();
+            leader.setLname("d");
+            iLeaderDao.addLeader(leader);
+            iLeaderDao.addLeader(leader1);
+            User user = new User();
+            user.setName("abcd");
+            User user1 = new User();
+            user1.setName("abcde");
+             iUserDao.addUser(user);
+             iUserDao.addUser(user1);
+            user.getLeaderList().add(leader);
+            user.getLeaderList().add(leader1);
+
+            user1.getLeaderList().add(leader);
+            user1.getLeaderList().add(leader1);
+
+            //give variables to relationship table
+            for (Leader l : user.getLeaderList()){
+                iLeaderDao.addRelation(l.getId(),user.getId());
+            }
+            for (Leader l : user1.getLeaderList()){
+                iLeaderDao.addRelation(l.getId(),user.getId());
+            }
+
+
+            sqlSession.commit();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void getUserAndLeader(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+            IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
+            User user = iUserDao.getUserById(44);
+            System.out.println(user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
