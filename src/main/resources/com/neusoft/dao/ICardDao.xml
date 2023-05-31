@@ -5,6 +5,8 @@
 <!--namespace :copy the reference of the dao interface ,
 make the dao interface connect with xml file-->
 <mapper namespace="com.neusoft.dao.ICardDao">
+<!--    开启二级缓存-->
+    <cache></cache>
 <!--    自动添加ID-->
 <insert id="addCard" parameterType="Card" keyProperty="id" useGeneratedKeys="true">
     insert into card (uid) values (#{uid})

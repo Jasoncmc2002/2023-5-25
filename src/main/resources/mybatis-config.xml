@@ -6,6 +6,15 @@
     <properties resource="mysql.properties"></properties>
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+<!--懒加载、延迟加载：
+          选择性加载数据（少执行几句SQL语句或者说“分步执行”即仅在请求特定数据时才执行对应的SQL语句）以节约服务器资源-->
+<!--        开启懒加载-->
+<!--        <setting name="lazyLoadingEnabled" value="true"/>-->
+<!--&lt;!&ndash;        真正的懒加载：false&ndash;&gt;-->
+<!--        <setting name="aggressiveLazyLoading" value="false"/>-->
+
+<!--        在此处和对应Dao的XML文件中开启二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 <!--    choose which environment default-->
     <typeAliases>

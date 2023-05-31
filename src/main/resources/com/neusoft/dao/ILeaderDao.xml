@@ -13,7 +13,7 @@ make the dao interface connect with xml file-->
         insert into rs_l_u(lid,uid) values (#{lid},#{uid})
     </insert>
     <select id="queryLeaderByUid" resultType="Leader" parameterType="int">
-        select l.id lname
+        select l.id,lname
         from leader l join rs_l_u r
         on l.id = r.lid
         where r.uid =#{id}

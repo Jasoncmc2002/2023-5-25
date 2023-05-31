@@ -122,7 +122,7 @@ public class TestMybatis {
             Leader leader = new Leader();
             leader.setLname("c");
             Leader leader1 = new Leader();
-            leader.setLname("d");
+            leader1.setLname("d");
             iLeaderDao.addLeader(leader);
             iLeaderDao.addLeader(leader1);
             User user = new User();
@@ -157,10 +157,39 @@ public class TestMybatis {
         try {
             sqlSession = MybatisUtil.getSession();
             IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
-            User user = iUserDao.getUserById(44);
-            System.out.println(user);
+            User user = iUserDao.getUserById(48);
+            //懒加载：若打印则看不出效果
+            //System.out.println(user);
+              System.out.println(user.getId());
+              System.out.println(user.getLeaderList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+    @Test
+    public void TestCache(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+           ICardDao iCardDao = sqlSession.getMapper(ICardDao.class);
+            Card card1 =iCardDao.queryCardById(5);
+
+            //sqlSession.clearCache();//清空缓存语句（也是关闭一级缓存的指令）：导致执行两次SQL并生成两个不同的对象
+             sqlSession.close();
+            SqlSession sqlSession1 = MybatisUtil.getSession();
+            ICardDao iCardDao1 = sqlSession1.getMapper(ICardDao.class);
+            Card card2 =iCardDao1.queryCardById(5);
+            //正常来说，以上两句只执行一次SQL查询
+            System.out.println(card1 == card2);
+            //而且还只生成一个对象（因为地址是一样的，所以没有两个对象）
+            //这是因为有L1 cache（一级缓存），默认是开启的
+            //一级缓存在mapper中共享，二级缓存在(sql)Session中共享
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
