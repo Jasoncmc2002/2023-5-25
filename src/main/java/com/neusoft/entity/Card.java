@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class Card implements Serializable {
     private int id;
     private int uid;
+    private String name;
 }

@@ -9,10 +9,77 @@ make the dao interface connect with xml file-->
     <cache></cache>
 <!--    自动添加ID-->
 <insert id="addCard" parameterType="Card" keyProperty="id" useGeneratedKeys="true">
-    insert into card (uid) values (#{uid})
+    insert into card (uid,name) values (#{uid},#{name})
 </insert>
-    <select id="queryCardById" parameterType="int" resultType="Card">
-          select * from card where id = #{id}
+
+<!--动态SQL标签-->
+<!--    <select id="queryCardByIdAndName"  resultType="Card">-->
+<!--        select * from card-->
+<!--        where true-->
+<!--        <if test="id >=0 ">-->
+<!--            and  id &lt;= #{id}-->
+<!--        </if>-->
+<!--        <if test="name !=null and name != '' ">-->
+<!--            and name =#{name}-->
+<!--        </if>-->
+
+<!--    </select>-->
+<!--    where标签：去掉前面多余的and但解决不了后面的and，故可用trim-->
+    <select id="queryCardByIdAndName"  resultType="Card">
+        select * from card
+       <where>
+        <if test="id >=0 ">
+            and  id &lt;= #{id}
+        </if>
+        <if test="name !=null and name !=''">
+            and name =#{name}
+        </if>
+       </where>
     </select>
+
+<!-- sql ,include :可以用它们组合起来去任意拼接Sql语句，可增加SQL语句的重用性-->
+    <sql id="getNameAndUid">
+         select id,uid,name
+    </sql>
+    <sql id="fromCard">
+        from card
+    </sql>
+
+    <select id="queryCardById" parameterType="int" resultType="Card">
+        <include refid="getNameAndUid"/>
+        <include refid="fromCard"/>
+        where true
+        <if test="id >=0 ">
+            and  id = #{id}
+        </if>
+    </select>
+
+
+<!--for each:以集合模仿并填充一个序列-->
+<!--    collection属性的值默认只有array和list，它取决于入参的类型而非其名-->
+    <select id="queryCardByIdGroup" parameterType="List" resultType="Card">
+        <include refid="getNameAndUid"/>
+        <include refid="fromCard"/>
+         where id in 
+         <foreach collection="list"  open="(" item="cardId" separator="," close=")">
+             #{cardId}
+         </foreach>
+--         (5,6,7)
+    </select>
+
+<!--   set标签：去除句尾多余的,（逗号），类似于where去除多余的end-->
+    <update id="updateCard">
+        update card
+        <set>
+        <if test="name !=null and name!=''">
+            name = #{name},
+        </if>
+        <if test="uid>0 ">
+            uid = #{uid}
+        </if>
+        </set>
+    where id =#{id}
+    </update>
+
 
 </mapper>

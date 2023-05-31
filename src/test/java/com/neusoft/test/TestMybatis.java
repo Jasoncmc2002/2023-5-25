@@ -159,7 +159,7 @@ public class TestMybatis {
             IUserDao iUserDao = sqlSession.getMapper(IUserDao.class);
             User user = iUserDao.getUserById(48);
             //懒加载：若打印则看不出效果
-            //System.out.println(user);
+            System.out.println(user);
               System.out.println(user.getId());
               System.out.println(user.getLeaderList());
         } catch (IOException e) {
@@ -191,5 +191,42 @@ public class TestMybatis {
             throw new RuntimeException(e);
         }
     }
+    @Test
+    public void TestIf(){
 
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+            ICardDao iCardDao=sqlSession.getMapper(ICardDao.class);
+            //Card card = iCardDao.queryCardById(5);
+            //System.out.println(card);
+            List<Integer> intList =new ArrayList<Integer>();
+            intList.add(5);
+            intList.add(6);
+            intList.add(7);
+            List<Card> list=iCardDao.queryCardByIdGroup(intList);
+            System.out.println(list);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void updateCard(){
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.getSession();
+            ICardDao iCardDao=sqlSession.getMapper(ICardDao.class);
+            Card card = new Card();
+            card.setId(10);
+            card.setUid(44);
+            System.out.println(card);
+            iCardDao.updateCard(card);
+            sqlSession.commit();
+            Card card1 =iCardDao.queryCardById(10);
+            System.out.println(card1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
